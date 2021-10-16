@@ -1,27 +1,42 @@
-/*
-This is your site JavaScript code - you can add interactivity and carry out processing
-- Initially the JS writes a message to the console, and moves a button you can add from the README
-*/
+import constants from "./constants.js";
 
-// Print a message in the browser's dev tools console each time the page loads
-// Use your menus or right-click / control-click and choose "Inspect" > "Console"
-console.log("Hello 🌎");
+let map;
+let lat, lng;
 
-/* 
-Make the "Click me!" button move when the visitor clicks it:
-- First add the button to the page by following the "Next steps" in the README
-*/
-const btn = document.querySelector("button"); // Get the button from the page
-// Detect clicks on the button
-if (btn) {
-  btn.onclick = function() {
-    // The JS works in conjunction with the 'dipped' code in style.css
-    btn.classList.toggle("dipped");
-  };
+const scrypt = document.createElement("script");
+scrypt.src = `https://maps.googleapis.com/maps/api/js?key=${constants.API_KEY}&callback=initMap`; //&v=weekly&channel=2
+scrypt.async = true;
+const header1 = document.querySelector('h1');
+
+header1.textContent = "Hola";
+
+
+function getCurrentPosition() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
 }
 
-// This is a single line JS comment
-/*
-This is a comment that can span multiple lines 
-- use comments to make your own notes!
-*/
+window.initMap = async function() {
+  try {
+    const position = await getCurrentPosition();
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+
+  /*  console.log(lat, lng);
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: lat, lng: lng },
+      zoom: 18
+    });
+
+    const marker = new google.maps.Marker({
+      position: { lat: lat, lng: lng },
+      map: map
+    });*/
+    console.log("Everything is good")
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
+document.head.appendChild(scrypt);
