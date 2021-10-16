@@ -7,11 +7,6 @@ const scrypt = document.createElement("script");
 scrypt.src = `https://maps.googleapis.com/maps/api/js?key=${constants.API_KEY}&callback=initMap`; //&v=weekly&channel=2
 scrypt.async = true;
 
-
-btnStartTracking.addEventHandler('click', ()=>{
-  var watcherID = navigator.geolocation.watchPosition()
-});
-
 function getCurrentPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -34,7 +29,17 @@ window.initMap = async function() {
       position: { lat: lat, lng: lng },
       map: map
     });
-    console.log("Everything is good")
+    let watcherID;
+    btnStartTracking.addEventHandler("click", () => {
+      watcherID = navigator.geolocation.watchPosition(position => {
+        marker.setPosition({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+      });
+    });
+
+    console.log("Everything is good");
   } catch (err) {
     alert(err.message);
   }
