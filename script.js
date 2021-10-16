@@ -7,6 +7,11 @@ const scrypt = document.createElement("script");
 scrypt.src = `https://maps.googleapis.com/maps/api/js?key=${constants.API_KEY}&callback=initMap`; //&v=weekly&channel=2
 scrypt.async = true;
 
+
+btnStartTracking.addEventHandler('click', ()=>{
+  var watcherID = navigator.geolocation.watchPosition()
+});
+
 function getCurrentPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
