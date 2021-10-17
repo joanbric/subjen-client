@@ -29,14 +29,16 @@ window.initMap = async function() {
     });
 
     const track = {};
-    
+    let counter = 0;
     let watcherID = navigator.geolocation.watchPosition(position => {
-      const latitude, longitude = position.coords;
+      const {latitude, longitude} = position.coords;
       marker.setPosition({
         lat: latitude,
         lng: longitude
       });
-      track
+      
+      track[counter] = {latitude, longitude};
+      counter++;
     });
 
     console.log("Everything is good");
