@@ -30,6 +30,16 @@ window.initMap = async function() {
 
     const track = {};
     let counter = 0;
+    
+    const flightPath = new google.maps.Polyline({
+    path: track,
+    geodesic: true,
+    strokeColor: "#FF0000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+  });
+    
+    
     let watcherID = navigator.geolocation.watchPosition(position => {
       const {latitude, longitude} = position.coords;
       marker.setPosition({
@@ -38,17 +48,11 @@ window.initMap = async function() {
       });
       
       track[counter] = {latitude, longitude};
+      flightPath.setPath(track);
       counter++;
     });
     
-        
-    const flightPath = new google.maps.Polyline({
-    path: track,
-    geodesic: true,
-    strokeColor: "#FF0000",
-    strokeOpacity: 1.0,
-    strokeWeight: 2,
-  });
+    
 
   flightPath.setMap(map);
     
