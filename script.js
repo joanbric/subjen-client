@@ -24,14 +24,19 @@ window.initMap = async function() {
 
     const marker = new google.maps.Marker({
       position: { lat: lat, lng: lng },
-      map: map
+      map: map,
+      icon: 'https://cdn.glitch.me/fbb65aa9-a4c0-481d-a5ba-b45d15f9e75f%2Fbus.png?v=1634458900680'
     });
 
+    const track = {};
+    
     let watcherID = navigator.geolocation.watchPosition(position => {
+      const latitude, longitude = position.coords;
       marker.setPosition({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lat: latitude,
+        lng: longitude
       });
+      track
     });
 
     console.log("Everything is good");
