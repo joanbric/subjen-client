@@ -40,6 +40,19 @@ window.initMap = async function() {
       track[counter] = {latitude, longitude};
       counter++;
     });
+    
+    
+    const flightPath = new google.maps.Polyline({
+    path: track,
+    geodesic: true,
+    strokeColor: "#FF0000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+  });
+
+  flightPath.setMap(map);
+    
+    
 
     console.log("Everything is good");
   } catch (err) {
