@@ -1,8 +1,5 @@
 import constants from "./constants.js";
 
-let map;
-let lat, lng;
-
 const scrypt = document.createElement("script");
 scrypt.src = `https://maps.googleapis.com/maps/api/js?key=${constants.API_KEY}&callback=initMap`; //&v=weekly&channel=2
 scrypt.async = true;
@@ -14,13 +11,13 @@ function getCurrentPosition() {
 }
 
 window.initMap = async function() {
+  let lat, lng;
   try {
     const position = await getCurrentPosition();
     lat = position.coords.latitude;
     lng = position.coords.longitude;
 
-  
-    map = new google.maps.Map(document.getElementById("map"), {
+    const map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: lat, lng: lng },
       zoom: 18
     });
@@ -29,14 +26,13 @@ window.initMap = async function() {
       position: { lat: lat, lng: lng },
       map: map
     });
-    
-    
+
     let watcherID = navigator.geolocation.watchPosition(position => {
-        marker.setPosition({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        });
+      marker.setPosition({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
       });
+    });
 
     console.log("Everything is good");
   } catch (err) {
