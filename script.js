@@ -41,7 +41,7 @@ window.initMap = async function() {
       counter++;
     });
     
-    
+        
     const flightPath = new google.maps.Polyline({
     path: track,
     geodesic: true,
