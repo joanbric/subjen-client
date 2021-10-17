@@ -28,7 +28,7 @@ window.initMap = async function() {
       icon: 'https://cdn.glitch.me/fbb65aa9-a4c0-481d-a5ba-b45d15f9e75f%2Fbus.png?v=1634458900680'
     });
 
-    const track = {};
+    const track = [{lat: lat, lng: lng}];
     let counter = 0;
     
     const flightPath = new google.maps.Polyline({
@@ -47,7 +47,7 @@ window.initMap = async function() {
         lng: longitude
       });
       
-      track[counter] = {latitude, longitude};
+      track.push({lat: latitude, lng: longitude});
       flightPath.setPath(track);
       counter++;
     });
