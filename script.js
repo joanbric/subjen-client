@@ -19,7 +19,7 @@ window.initMap = async function() {
     lat = position.coords.latitude;
     lng = position.coords.longitude;
 
-    console.log(lat, lng);
+  
     map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: lat, lng: lng },
       zoom: 18
@@ -29,15 +29,14 @@ window.initMap = async function() {
       position: { lat: lat, lng: lng },
       map: map
     });
-    let watcherID;
-    btnStartTracking.addEventHandler("click", () => {
-      watcherID = navigator.geolocation.watchPosition(position => {
+    
+    
+    let watcherID = navigator.geolocation.watchPosition(position => {
         marker.setPosition({
           lat: position.coords.latitude,
           lng: position.coords.longitude
         });
       });
-    });
 
     console.log("Everything is good");
   } catch (err) {
