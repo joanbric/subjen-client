@@ -1,10 +1,18 @@
 export class builder {
   constructor(google){
     this.google =  google;
-    this.maps;
+    this.maps = {};
   }
   
-  get map(){
-    return maps
+  allMap(){
+    return this.maps;
+  }
+  
+  singleMap(name){
+    return this.maps[name];
+  }
+  
+  newMap(mapDiv, options){
+    if(mapDiv.)
   }
 }
