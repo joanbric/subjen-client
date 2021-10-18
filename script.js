@@ -1,16 +1,14 @@
-import constants from "./constants.js";
-
-const scrypt = document.createElement("script");
-scrypt.src = `https://maps.googleapis.com/maps/api/js?key=${constants.API_KEY}&callback=initMap`; //&v=weekly&channel=2
-scrypt.async = true;
-
+import {script} from 'create-script-map.js';
+ 
 function getCurrentPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 }
 
-window.initMap = async function() {
+
+
+window.initMap = async () => {
   let lat, lng;
   try {
     const position = await getCurrentPosition();
