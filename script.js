@@ -11,19 +11,6 @@ function getCurrentPosition() {
 }
 
 
-function calculateAndDisplayRoute(directionsService, directionsRenderer, ) {
-  directionsService
-    .route({
-      origin: { lat: 37.77, lng: -122.447 },
-      destination: { lat: 37.768, lng: -122.511 },
-      travelMode: google.maps.TravelMode["WALKING"],
-    })
-    .then((response) => {
-      directionsRenderer.setDirections(response);
-    })
-    .catch((e) => window.alert("Directions request failed due to " + status))
-
-
 window.initMap = async function() {
   let lat, lng;
   try {
@@ -74,28 +61,26 @@ window.initMap = async function() {
     flightPath.setMap(map);
 
     console.log("Everything is good");
-    
-    
-    
-    
-    
-    
-    
-    
   
 
-  directionsRenderer.setMap(map);
-    
-  const directionsRenderer = new google.maps.DirectionsRenderer();
-  const directionsService = new google.maps.DirectionsService();
-  calculateAndDisplayRoute(directionsService, directionsRenderer);
-
-
-    
-    
-    
+  
   } catch (err) {
     alert(err.message);
   }
 };
-document.head.appendChild(scrypt);
+
+
+function calculateAndDisplayRoute(directionsService, directionsRenderer, travelMode) {
+  directionsService
+    .route({
+      origin: { lat: 37.77, lng: -122.447 },
+      destination: { lat: 37.768, lng: -122.511 },
+      travelMode: travelMode,
+    })
+    .then((response) => {
+      directionsRenderer.setDirections(response);
+    })
+    .catch((e) => window.alert("Directions request failed due to " + status));
+}
+
+  document.head.appendChild(scrypt);
