@@ -1,12 +1,14 @@
 import { scrypt } from "./js/script-apimap.js";
-import {google_map} from "./js/build-map.js"
+import {builtMap} from "./js/build-map.js";
 import { MarkerManager } from "./js/MarkerManager.js";
 
 window.initMap = async function() {
   try {
+    
+    const google_map = await builtMap();
       
       let counter = 0;
-      const track = [{ lat: lat, lng: lng }];
+      const track = [google_map.getCenter()];
     const markerManager = MarkerManager();
 
 

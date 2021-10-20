@@ -1,6 +1,8 @@
 async function initPosition() {
-    let lat, lng;
+  try{
+    
 
+    let lat, lng;
     function getCurrentPosition() {
         return new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -17,6 +19,9 @@ async function initPosition() {
     }
 
     return { lat: lat, lng: lng };
+  }catch(err){
+    alert(err.message);
+  }
 }
 
 

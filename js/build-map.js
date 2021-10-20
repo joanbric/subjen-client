@@ -1,12 +1,20 @@
-import { initCoords } from "./js/initPosition.js";
+import { initCoords } from "./initPosition.js";
 
-
-const {lat, lng} = (await initCoords);
-const google_map = new google.maps.Map(document.getElementById("map"), {
+async function builtMap() {
+  try{
+    
+  const { lat, lng } = await initCoords;
+  const google_map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: lat, lng: lng },
     zoom: 18,
-    disableDefaultUI: true,
-});
+    disableDefaultUI: true
+  });
+    alert("gool")
+    
+    return google_map;
+  }catch(err){
+    alert(err.message)
+  }
+}
 
-
-export default google_map;
+export default builtMap;
