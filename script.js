@@ -17,7 +17,7 @@ window.initMap = async function() {
     lng = position.coords.longitude;
 
     const map = await buildMap();
-    const markerManager = MarkerManager();
+    const markerManager = new MarkerManager(map);
     const me = markerManager.me;
 
     const track = [{ lat: lat, lng: lng }];
