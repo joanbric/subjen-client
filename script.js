@@ -11,18 +11,17 @@ function getCurrentPosition() {
 }
 
 
-function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+function calculateAndDisplayRoute(directionsService, directionsRenderer, ) {
   directionsService
     .route({
       origin: { lat: 37.77, lng: -122.447 },
       destination: { lat: 37.768, lng: -122.511 },
-      travelMode: google.maps.TravelMode["walking"],
+      travelMode: google.maps.TravelMode["WALKING"],
     })
     .then((response) => {
       directionsRenderer.setDirections(response);
     })
     .catch((e) => window.alert("Directions request failed due to " + status))
-
 
 
 window.initMap = async function() {
@@ -83,13 +82,13 @@ window.initMap = async function() {
     
     
     
-    const directionsRenderer = new google.maps.DirectionsRenderer();
-  const directionsService = new google.maps.DirectionsService();
+  
 
   directionsRenderer.setMap(map);
     
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  const directionsService = new google.maps.DirectionsService();
   calculateAndDisplayRoute(directionsService, directionsRenderer);
-  const selectedMode = document.getElementById("mode").value;
 
 
     
