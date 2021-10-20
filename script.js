@@ -1,15 +1,16 @@
 import scrypt from "./js/script-apimap.js"
 import buildMap from "./js/build-map.js";
 import MarkerManager from "./js/MarkerManager.js"
-
-
+import Tracker from "./js/Tracker.js"
+let idTrackWatcher;
+const btnTrack = document.querySelector('button#btnTrack')
 
 window.initMap = async function() {
   try {
     const map = await buildMap();
     const markerManager = new MarkerManager(map);
     const me = markerManager.me;
-
+/*
     const track = [me.getPosition()];
 
     const flightPath = new google.maps.Polyline({
@@ -19,21 +20,21 @@ window.initMap = async function() {
       strokeOpacity: 0.8,
       strokeWeight: 4
     });
-
+*/
     const watcherID_me = navigator.geolocation.watchPosition(
       position => {
         const currentPosition = { "lat": position.coords.latitude, "lng": position.coords.longitude };
         
         me.setPosition(currentPosition);
         map.setCenter(currentPosition);
-        track.push(currentPosition);
-        flightPath.setPath(track);
+       /* track.push(currentPosition);
+        flightPath.setPath(track);*/
       },
       null,
       { enableHighAccuracy: true }
     );
 
-    flightPath.setMap(map);
+   // flightPath.setMap(map);
 
     
   } catch (err) {

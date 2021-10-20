@@ -4,26 +4,31 @@ class Tracker {
     this.paths = {};
   }
 
-  trackMe(id, ) {
-    const watcherID_me = navigator.geolocation.watchPosition(
-      position => {
-        const currentPosition = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        if (this.tracks[id]) {
-          alert("That id already exist.");
-        } else {
-          this.tracks[id].push(currentPosition);
-          flightPath.setPath(track);
-          
-        }
-      },
-      null,
-      { enableHighAccuracy: true }
-    );
+  trackMe(id, map) {
+    let watcherID_me;
+    if (this.tracks[id]) {
+      alert("That id already exist.");
+    } else {
+      const path = this.newPath(id);
+      this.tracks[id] = [];
 
-    flightPath.setMap(map);
+      watcherID_me = navigator.geolocation.watchPosition(
+        position => {
+          const currentPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+
+          this.tracks[id].push(currentPosition);
+          path.setPath(this.tracks[id]);
+        },
+        null,
+        { enableHighAccuracy: true }
+      );
+
+      path.setMap(map);
+    }
+    return watcherID_me;
   }
 
   untrackMe(watcherID) {
@@ -42,3 +47,5 @@ class Tracker {
     return this.paths[id];
   }
 }
+
+export default Tracker;
