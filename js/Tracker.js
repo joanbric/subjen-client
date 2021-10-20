@@ -1,26 +1,23 @@
-class Tracker{
-  
-  constructor(){
+class Tracker {
+  constructor() {
     this.tracks = {};
-    this.paths = [new google.maps.Polyline({
-      //path: track,
-      geodesic: true,
-      strokeColor: "#FF0000",
-      strokeOpacity: 0.8,
-      strokeWeight: 5
-    })];
-    
+    this.paths = {};
   }
-  
-  trackMe(){
-     const watcherID_me = navigator.geolocation.watchPosition(
+
+  trackMe(id, ) {
+    const watcherID_me = navigator.geolocation.watchPosition(
       position => {
-        const currentPosition = { "lat": position.coords.latitude, "lng": position.coords.longitude };
-        
-        me.setPosition(currentPosition);
-        map.setCenter(currentPosition);
-        track.push(currentPosition);
-        flightPath.setPath(track);
+        const currentPosition = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        if (this.tracks[id]) {
+          alert("That id already exist.");
+        } else {
+          this.tracks[id].push(currentPosition);
+          flightPath.setPath(track);
+          
+        }
       },
       null,
       { enableHighAccuracy: true }
@@ -28,10 +25,20 @@ class Tracker{
 
     flightPath.setMap(map);
   }
-  
-  untrackMe(watcherID){
+
+  untrackMe(watcherID) {
     navigator.geolocation.clearWatch(watcherID);
   }
-  
-  static
+
+  static newPath(id) {
+    this.paths[id] = new google.maps.Polyline({
+      //path: track,
+      geodesic: true,
+      strokeColor: "#FF0000",
+      strokeOpacity: 0.8,
+      strokeWeight: 5
+    });
+
+    return this.paths[id];
+  }
 }
