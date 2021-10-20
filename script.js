@@ -5,7 +5,6 @@ import MarkerManager from "./js/MarkerManager.js"
 
 
 window.initMap = async function() {
-  let lat, lng;
   try {
   
 
@@ -26,10 +25,10 @@ window.initMap = async function() {
 
     let watcherID = navigator.geolocation.watchPosition(
       position => {
-        const currentPosition = { lat: position.latitude, lng: position.longitude };
+        const currentPosition = { "lat": position.coords.latitude, "lng": position.coords.longitude };
         
         me.setPosition(currentPosition);
-        //map.setCenter(currentPosition);
+        map.setCenter(currentPosition);
         track.push(currentPosition);
         flightPath.setPath(track);
         counter++;
@@ -40,10 +39,7 @@ window.initMap = async function() {
 
     flightPath.setMap(map);
 
-    console.log("Everything is good");
-  
-
-
+    
   } catch (err) {
     alert(err.message);
   }
