@@ -63,24 +63,29 @@ window.initMap = async function() {
     console.log("Everything is good");
   
 
-  
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  const directionsService = new google.maps.DirectionsService();
+  directionsRenderer.setMap(map);
+  calculateAndDisplayRoute(directionsService, directionsRenderer);
+
+
   } catch (err) {
     alert(err.message);
   }
 };
 
 
-function calculateAndDisplayRoute(directionsService, directionsRenderer, travelMode) {
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
   directionsService
     .route({
-      origin: { lat: 37.77, lng: -122.447 },
-      destination: { lat: 37.768, lng: -122.511 },
-      travelMode: travelMode,
+      origin: { lat: 15.558430, lng: -87.999547 },
+      destination: { lat: 15.549278893450042, lng: -88.00540847346824 },
+      travelMode: google.maps.TravelMode["DRIVING"],
     })
     .then((response) => {
       directionsRenderer.setDirections(response);
     })
-    .catch((e) => window.alert("Directions request failed due to " + status));
+    .catch((e) => document.getElementById("map").textContent = e);
 }
 
   document.head.appendChild(scrypt);
