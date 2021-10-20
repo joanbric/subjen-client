@@ -1,14 +1,16 @@
-import {script} from 'create-script-map.js';
- 
+import constants from "./js/constants.js";
+
+const scrypt = document.createElement("script");
+scrypt.src = `https://maps.googleapis.com/maps/api/js?key=${constants.API_KEY}&callback=initMap`; //&v=weekly&channel=2
+scrypt.async = true;
+
 function getCurrentPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 }
 
-
-
-window.initMap = async () => {
+window.initMap = async function() {
   let lat, lng;
   try {
     const position = await getCurrentPosition();
@@ -61,5 +63,5 @@ window.initMap = async () => {
     alert(err.message);
   }
 };
-
+alert('goo');
 document.head.appendChild(scrypt);
