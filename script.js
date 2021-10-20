@@ -3,7 +3,7 @@ import buildMap from "./js/build-map.js";
 import MarkerManager from "./js/MarkerManager.js"
 import Tracker from "./js/Tracker.js"
 let idTrackWatcher;
-const btnTrack = document.querySelector('button#btnTrack')
+const btnTrack = document.querySelector('#btnTrack');
 
 window.initMap = async function() {
   try {
@@ -35,6 +35,21 @@ window.initMap = async function() {
     );
 
    // flightPath.setMap(map);
+    
+    
+    const tracker = new Tracker(map);
+    
+    btnTrack.addEventListener('click', ()=>{
+      if(btnTrack.textContent == "Track"){
+       idTrackWatcher = tracker.trackMe(prompt('Nombre'));
+      btnTrack.textContent = 'Untrack';
+      }else{
+        tracker.untrackMe(idTrackWatcher);
+        btnTrack.textContent = 'Track';
+      }
+      
+      
+    });
 
     
   } catch (err) {

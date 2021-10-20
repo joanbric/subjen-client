@@ -1,10 +1,12 @@
 class Tracker {
-  constructor() {
+  constructor(map) {
     this.tracks = {};
     this.paths = {};
+    this.map = map;
   }
 
-  trackMe(id, map) {
+  trackMe(id) {
+    try
     let watcherID_me;
     if (this.tracks[id]) {
       alert("That id already exist.");
@@ -26,7 +28,7 @@ class Tracker {
         { enableHighAccuracy: true }
       );
 
-      path.setMap(map);
+      path.setMap(this.map);
     }
     return watcherID_me;
   }
