@@ -6,8 +6,9 @@ class Tracker {
   }
 
   trackMe(id) {
-    try
     let watcherID_me;
+    try{
+      
     if (this.tracks[id]) {
       alert("That id already exist.");
     } else {
@@ -30,6 +31,9 @@ class Tracker {
 
       path.setMap(this.map);
     }
+    }catch(err){
+      alert(err.message)
+    }
     return watcherID_me;
   }
 
@@ -37,7 +41,7 @@ class Tracker {
     navigator.geolocation.clearWatch(watcherID);
   }
 
-  static newPath(id) {
+  newPath(id) {
     this.paths[id] = new google.maps.Polyline({
       //path: track,
       geodesic: true,
