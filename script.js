@@ -63,11 +63,6 @@ window.initMap = async function() {
     console.log("Everything is good");
   
 
-  const directionsRenderer = new google.maps.DirectionsRenderer();
-  const directionsService = new google.maps.DirectionsService();
-  directionsRenderer.setMap(map);
-  calculateAndDisplayRoute(directionsService, directionsRenderer);
-
 
   } catch (err) {
     alert(err.message);
