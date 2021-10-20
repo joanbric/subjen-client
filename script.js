@@ -75,17 +75,4 @@ window.initMap = async function() {
 };
 
 
-function calculateAndDisplayRoute(directionsService, directionsRenderer) {
-  directionsService
-    .route({
-      origin: { lat: 15.558430, lng: -87.999547 },
-      destination: { lat: 15.549278893450042, lng: -88.00540847346824 },
-      travelMode: google.maps.TravelMode["DRIVING"],
-    })
-    .then((response) => {
-      directionsRenderer.setDirections(response);
-    })
-    .catch((e) => document.getElementById("map").textContent = e);
-}
-
   document.head.appendChild(scrypt);
