@@ -11,7 +11,6 @@ window.initMap = async function() {
     const me = markerManager.me;
 
     const track = [me.getPosition()];
-    let counter = 0;
 
     const flightPath = new google.maps.Polyline({
       path: track,
@@ -29,7 +28,6 @@ window.initMap = async function() {
         map.setCenter(currentPosition);
         track.push(currentPosition);
         flightPath.setPath(track);
-        counter++;
       },
       null,
       { enableHighAccuracy: true }
