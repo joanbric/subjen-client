@@ -1,38 +1,14 @@
-import constants from "./js/constants.js";
-
-const scrypt = document.createElement("script");
-scrypt.src = `https://maps.googleapis.com/maps/api/js?key=${constants.API_KEY}&callback=initMap`; //&v=weekly&channel=2
-scrypt.async = true;
-
-function getCurrentPosition() {
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-}
-
+import { scrypt } from "./js/script-apimap.js";
+import {google_map} from "./js/build-map.js"
+import { MarkerManager } from "./js/MarkerManager.js";
 
 window.initMap = async function() {
-  let lat, lng;
   try {
-    const position = await getCurrentPosition();
-    lat = position.coords.latitude;
-    lng = position.coords.longitude;
+      
+      let counter = 0;
+      const track = [{ lat: lat, lng: lng }];
+    const markerManager = MarkerManager();
 
-    const map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: lat, lng: lng },
-      zoom: 18,
-      disableDefaultUI: true,
-    });
-
-    const marker = new google.maps.Marker({
-      position: { lat: lat, lng: lng },
-      map: map,
-      icon:
-        "https://cdn.glitch.me/fbb65aa9-a4c0-481d-a5ba-b45d15f9e75f%2Fbus.png?v=1634458900680"
-    });
-
-    const track = [{ lat: lat, lng: lng }];
-    let counter = 0;
 
     const flightPath = new google.maps.Polyline({
       path: track,
@@ -42,10 +18,12 @@ window.initMap = async function() {
       strokeWeight: 4
     });
 
+
     let watcherID = navigator.geolocation.watchPosition(
       position => {
         const { latitude, longitude } = position.coords;
-        marker.setPosition({
+        
+        markerManager.me.setPosition({
           lat: latitude,
           lng: longitude
         });
@@ -58,7 +36,7 @@ window.initMap = async function() {
       { enableHighAccuracy: true }
     );
 
-    flightPath.setMap(map);
+    flightPath.setMap(google_map);
 
     console.log("Everything is good");
   
