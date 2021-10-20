@@ -25,4 +25,4 @@ async function initPosition() {
 }
 
 
-export const initCoords = initPosition();
+export default initPosition;

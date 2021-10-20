@@ -1,16 +1,27 @@
-import { scrypt } from "./js/script-apimap.js";
-import {builtMap} from "./js/build-map.js";
-import { MarkerManager } from "./js/MarkerManager.js";
+import scrypt from "./js/script-apimap.js"
+import buildMap from "./js/build-map.js";
+import MarkerManager from "./js/MarkerManager.js"
+
+function getCurrentPosition() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
 
 window.initMap = async function() {
+  let lat, lng;
   try {
-    
-    const google_map = await builtMap();
-      
-      let counter = 0;
-      const track = [google_map.getCenter()];
-    const markerManager = MarkerManager();
+    const position = await getCurrentPosition();
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
 
+    const map = await buildMap();
+    const markerManager = MarkerManager();
+    const me = markerManager.me;
+
+    const track = [{ lat: lat, lng: lng }];
+    let counter = 0;
 
     const flightPath = new google.maps.Polyline({
       path: track,
@@ -20,12 +31,10 @@ window.initMap = async function() {
       strokeWeight: 4
     });
 
-
     let watcherID = navigator.geolocation.watchPosition(
       position => {
         const { latitude, longitude } = position.coords;
-        
-        markerManager.me.setPosition({
+        me.setPosition({
           lat: latitude,
           lng: longitude
         });
@@ -38,7 +47,7 @@ window.initMap = async function() {
       { enableHighAccuracy: true }
     );
 
-    flightPath.setMap(google_map);
+    flightPath.setMap(map);
 
     console.log("Everything is good");
   
