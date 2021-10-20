@@ -6,8 +6,6 @@ import MarkerManager from "./js/MarkerManager.js"
 
 window.initMap = async function() {
   try {
-  
-
     const map = await buildMap();
     const markerManager = new MarkerManager(map);
     const me = markerManager.me;
@@ -23,7 +21,7 @@ window.initMap = async function() {
       strokeWeight: 4
     });
 
-    let watcherID = navigator.geolocation.watchPosition(
+    const watcherID_me = navigator.geolocation.watchPosition(
       position => {
         const currentPosition = { "lat": position.coords.latitude, "lng": position.coords.longitude };
         
