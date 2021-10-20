@@ -16,7 +16,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
     .route({
       origin: { lat: 37.77, lng: -122.447 },
       destination: { lat: 37.768, lng: -122.511 },
-      travelMode: google.maps.TravelMode[selectedMode],
+      travelMode: google.maps.TravelMode["walking"],
     })
     .then((response) => {
       directionsRenderer.setDirections(response);
