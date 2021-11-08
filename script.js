@@ -51,7 +51,7 @@ window.initMap = async function() {
       
     });
 
-    
+    console.log('Test log')
   } catch (err) {
     alert(err.message);
   }
