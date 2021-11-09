@@ -50,10 +50,12 @@ function loadServiceWorker() {
 
     window.addEventListener("load", async () => {
         try {
-            const regist = navigator.serviceWorker.register("./sw.js");
+            const regist = await navigator.serviceWorker.register("./sw.js");
             console.log("ServiceWorker registred successful with scope: ", (await regist).scope)
         } catch (err) {
             console.error(err);
         }
     });
 }
+
+loadServiceWorker()
